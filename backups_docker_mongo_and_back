@@ -1,0 +1,14 @@
+#!/bin/bash
+
+#into mongo backup
+docker exec -it fcc9ec0785f5  /bin/bash
+mongodump --db newdb --out /var/backups/mongobackups/today
+
+#extract
+docker cp docker-container:/var/backups/mongobackups/today/dgp_gen.tar.gz
+
+#copy de container to host
+docker cp docker-deploy-prod_backend:/repo/files.tar.gz files.tar.gz
+
+
+#RESTORE DATA
